@@ -1,0 +1,16 @@
+.container {
+    background-color: #F5F1EE;
+    height: 100vh;
+    width: 100%;
+    padding-top: 100px;
+}
+
+.content {
+    width: 600px;
+    margin: 0 auto;
+    border: 1px solid;
+}
+
+.title {
+
+}

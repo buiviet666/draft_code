@@ -1,0 +1,43 @@
+Todo List App – Interactive Task Manager (ReactJS)
+
+================================================================================
+MỤC TIÊU
+--------------------------------------------------------------------------------
+Xây dựng một Todo List ReactJS để luyện tập các kỹ năng:
+- State management: useState, useReducer
+- Side effects: useEffect (localStorage, API)
+- Component structure & props
+- Event handling & forms
+- Conditional rendering & dynamic lists
+- Optional: Context API / TypeScript / Styled Components
+
+================================================================================
+YÊU CẦU CHỨC NĂNG
+--------------------------------------------------------------------------------
+1. Quản lý task cơ bản:
+   - Thêm task mới
+   - Xóa task
+   - Đánh dấu task hoàn thành / chưa hoàn thành
+   - Edit task (sửa tên task)
+
+2. Tính năng nâng cao:
+   - Filter task theo trạng thái: All / Active / Completed
+   - Search task theo keyword
+   - Sort task: mới → cũ hoặc theo tên
+   - LocalStorage: lưu tasks để khi reload trang vẫn giữ state
+   - Drag & drop (optional) để sắp xếp task
+
+================================================================================
+GIAO DIỆN
+--------------------------------------------------------------------------------
+- Input + Button để thêm task
+- List task:
+  - Task chưa hoàn thành → checkbox unchecked
+  - Task hoàn thành → checkbox checked + text gạch ngang
+- Action buttons:
+  - Edit
+  - Delete
+- Filter & Search bar trên cùng
+- Responsive: hiển thị tốt trên desktop và mobile
+
+================================================================================

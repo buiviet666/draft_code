@@ -1,0 +1,102 @@
+/* reset.css - optimized for React apps */
+
+/* 1. Box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+/* 3. Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+/* 4. Body defaults */
+body {
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* 5. Remove list styles */
+ul,
+ol {
+  list-style: none;
+}
+
+/* 6. Anchor defaults */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 7. Media elements */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 8. Form elements */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 9. Buttons */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* 10. Tables */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 11. Typography wrapping */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* 12. Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition: none !important;
+  }
+}
