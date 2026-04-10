@@ -3,13 +3,28 @@ import React, { useState } from 'react'
 import type { Item } from './typeTodo';
 import Icon from '../../components/Icon';
 
-type Props = {}
 
-const TodoList = (props: Props) => {
+const TodoList = () => {
   const [valueInput, setValueInput] = useState<string>('');
   const [listTodo, setListTodo] = useState<Item[]>([]);
   const [editInput, setEditInput] = useState<string>('');
-  console.log("listTodo", listTodo);
+  const [filter, setFilter] = useState('all');
+  const [toggle, setToggle] = useState(false);
+
+  const listFilter = [
+    {
+      id: 1,
+      name: "all",
+    },
+    {
+      id: 2,
+      name: "do",
+    },
+    {
+      id: 3,
+      name: "completed",
+    },
+  ]
   
   const handleSubmitAdd = () => {
     if (valueInput === '') return;
@@ -30,7 +45,7 @@ const TodoList = (props: Props) => {
 
   const handleCheckTodo = (check: boolean, value: any) => {
     setListTodo(prev => prev.map(item => 
-      item.id === value.id ? {id: value.id, name: item.name, checked: check, edit: item.edit} : item
+      item.id === value.id ? {...item, checked: check} : item
     ))
   }
 
@@ -55,7 +70,14 @@ const TodoList = (props: Props) => {
       item.id === value.id ? {...item, edit: true} : item
     ))
   }
-  
+
+  const filterData = listTodo.filter(item => {
+    if (filter === 'all') return true;
+    if (filter === 'do') return item.checked === false;
+    if (filter === 'completed') return item.checked === true;
+    return true;
+  })
+
   return (
     <div className='container'>
       <div className='content'>
@@ -68,7 +90,39 @@ const TodoList = (props: Props) => {
           <span onClick={handleSubmitAdd} className='btn'>Add</span>
           {listTodo.length > 0 && <span onClick={() => setListTodo([])} className='btn'>Clear</span>}
         </div>
-        <div style={{
+
+        
+
+        {listTodo.length > 0 && <div style={{
+          marginTop: '20px',
+          position: 'relative',
+          display: 'flex',
+          gap: '8px',
+        }}>
+          <span className='btn' style={{}} onClick={() => setToggle(prev => !prev)}>Filter</span>
+          <div className='tableMiniCustom' 
+            style={{
+              display: toggle ? 'grid' : 'none'
+            }}
+          >
+            {listFilter.map(item => (
+              <label style={{display: 'flex', flexDirection: 'row', gap: '8px', cursor: 'pointer'}} onClick={() => setFilter(item.name)}>
+                <input type='checkbox' checked={filter === item.name}/>
+                <span>{item.name}</span>
+              </label>
+            ))}
+          </div>
+          <div className='inputSearch' style={{display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', gap: '8px'}}>
+            <input style={{width: '100%'}} required/>
+            <p>Search</p>
+            <span>
+              <i />
+            </span>
+            <Icon name='search' color='#FFFFFF' size={15} onClick={() => {}} className='iconCustom'/>
+          </div>
+        </div>}
+
+        {filterData.length > 0 ? <div style={{
           marginTop: '20px',
         }}>
           <ul style={{
@@ -77,9 +131,9 @@ const TodoList = (props: Props) => {
             flexDirection: 'column',
             gap: '8px',
           }}>
-            {listTodo.map(item => (
+            {filterData.map(item => (
               <div>
-                {item.edit ? <div className='containerItem'>
+                {item.edit ? <div className='containerItem' style={{padding: 0}}>
                   <input 
                     name='todoinputedit' 
                     type='text'
@@ -89,15 +143,20 @@ const TodoList = (props: Props) => {
                     }}
                     className='inputCustom'
                   />
-                  <Icon name='close' color='#FFFFFF' size={13} onClick={() => handleEditTodo(item, true)} className='iconCustom'/>
-                  <Icon name='check' color='#FFFFFF' size={15} onClick={() => handleEditTodo(item, false, editInput)} className='iconCustom'/>
+                  <div style={{padding: '10px'}}>
+                    <Icon name='close' color='#FFFFFF' size={13} onClick={() => handleEditTodo(item, true)} className='iconCustom'/>
+                  </div>
+                  <div style={{padding: '10px'}}>
+                    <Icon name='check' color='#FFFFFF' size={15} onClick={() => handleEditTodo(item, false, editInput)} className='iconCustom'/>
+                  </div>
                 </div> :
-                <div className='containerItem'>
-                  <input checked={item.checked} type='checkbox' 
+                <label className='containerItem' style={{cursor: 'pointer'}}>
+                  <input className='inputView' checked={item.checked} type='checkbox' 
                     onChange={(e) => {
                       handleCheckTodo(e.target.checked, item)
                     }}
                   />
+                  <span className="checkmark"></span>
                   <li style={{
                     textDecoration: item.checked === true ? 'line-through' : '',
                     color: item.checked === true ? '#aaa' : '#000000',
@@ -109,19 +168,23 @@ const TodoList = (props: Props) => {
                     {item.name}
                   </li>
                   {!editInput && <>
-                    <Icon name='bin' color='#FFFFFF' size={15} onClick={() => handleDeleteTodo(item)} className='iconCustom'/>
-                    <Icon name='pen' color='#FFFFFF' size={15} onClick={() => {
-                        setEditInput(item.name);
-                        handleEditTodo(item); 
-                      }}
-                      className='iconCustom'
-                    />
+                    <div style={{padding: '10px'}}>
+                      <Icon name='bin' color='#FFFFFF' size={15} onClick={() => handleDeleteTodo(item)} className='iconCustom'/>
+                    </div>
+                    <div style={{padding: '10px'}}>
+                      <Icon name='pen' color='#FFFFFF' size={15} onClick={() => {
+                          setEditInput(item.name);
+                          handleEditTodo(item); 
+                        }}
+                        className='iconCustom'
+                      />
+                    </div>
                   </>}
-                </div>}
+                </label>}
               </div>
             ))}
           </ul>
-        </div>
+        </div> : <div style={{marginTop: '20px', textAlign: 'center'}}>You have nothing to do! Add more do more :))</div>}
       </div>
     </div>
   )

@@ -5,6 +5,7 @@ import CloseIcon from "../assets/icons/CloseIcon";
 import MenuIcon from "../assets/icons/MenuIcon";
 import NotesIcon from "../assets/icons/NotesIcon";
 import PenIcon from "../assets/icons/PenIcon";
+import SearchIcon from "../assets/icons/SearchIcon";
 import SettingIcon from "../assets/icons/SettingIcon";
 
 export const ICONS = {
@@ -16,4 +17,5 @@ export const ICONS = {
   pen: PenIcon,
   close: CloseIcon,
   check: CheckIcon,
+  search: SearchIcon,
 };

@@ -15,13 +15,13 @@ Xây dựng một Todo List ReactJS để luyện tập các kỹ năng:
 YÊU CẦU CHỨC NĂNG
 --------------------------------------------------------------------------------
 1. Quản lý task cơ bản:
-   - Thêm task mới
-   - Xóa task
-   - Đánh dấu task hoàn thành / chưa hoàn thành
-   - Edit task (sửa tên task)
+   - Thêm task mới >>> done
+   - Xóa task >>> done
+   - Đánh dấu task hoàn thành / chưa hoàn thành >>> done
+   - Edit task (sửa tên task) >>> done
 
 2. Tính năng nâng cao:
-   - Filter task theo trạng thái: All / Active / Completed
+   - Filter task theo trạng thái: All / Active / Completed >>> done
    - Search task theo keyword
    - Sort task: mới → cũ hoặc theo tên
    - LocalStorage: lưu tasks để khi reload trang vẫn giữ state

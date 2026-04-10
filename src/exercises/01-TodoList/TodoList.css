@@ -2,7 +2,7 @@
     background-color: #F5F1EE;
     height: 100vh;
     width: 100%;
-    padding-top: 100px;
+    padding: 100px 0;
 }
 
 .content {
@@ -10,6 +10,11 @@
     margin: 0 auto;
     border: 1px solid;
     padding: 30px;
+    overflow: auto;
+    max-height: calc(100vh - 200px);
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .title {
@@ -26,10 +31,11 @@
     font-size: 15px;
     font-weight: 400;
     height: 40px;
-    min-width: 65px;
+    width: 65px;
     display: flex;
     align-items: center;
     justify-content: center;
+    user-select: none;
 }
 
 .btn:hover {
@@ -53,8 +59,174 @@
     align-items: center;
     gap: 4px;
     height: 36px;
+    position: relative;
+    padding-left: 35px;
 }
 
 .iconCustom {
     cursor: pointer;
 }
+
+.containerItem .inputView {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #ffffff;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+.containerItem .inputView:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.containerItem .inputView:checked ~ .checkmark:after {
+  display: block;
+}
+
+.containerItem .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.content::-webkit-scrollbar {
+    width: 0px;
+}
+
+.tableMiniCustom {
+    position: absolute;
+    left: 80px;
+    top: 8px;
+    background: #ffffff;
+    padding: 12px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 250px;
+    gap: 4px;
+    z-index: 999;
+}
+
+.tableMiniCustom::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: -8px;
+
+  width: 0;
+  height: 0;
+
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #ffffff;
+}
+
+.inputSearch {
+    position: relative;
+}
+
+.inputSearch input {
+    border: 1px solid lightgray;
+    padding: 0.35em 0.45em;
+    transition: 0.4s;
+    background: transparent;
+  }
+
+.inputSearch input:focus {
+    outline: none;
+  }
+
+.inputSearch input ~ span:before,
+.inputSearch input ~ span:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 1px;
+    transition: 0.2s;
+  }
+
+.inputSearch input ~ span:after {
+    top: auto;
+    bottom: 0;
+    right: auto;
+    left: 0;
+  }
+
+.inputSearch input ~ span i:before,
+.inputSearch input ~ span i:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 0;
+    transition: 0.2s;
+  }
+
+.inputSearch input ~ span i:after {
+    left: auto;
+    right: 0;
+    top: auto;
+    bottom: 0;
+  }
+
+.inputSearch input:focus ~ span:before,
+.inputSearch input:focus ~ span:after {
+    width: 100%;
+    transition: 0.2s;
+  }
+
+.inputSearch input:focus ~ span i:before,
+.inputSearch input:focus ~ span i:after {
+    height: 100%;
+    transition: 0.2s;
+  }
+
+.inputSearch input ~ p {
+    position: absolute;
+    left: 14px;
+    top: 30%;
+    transform: translateY(-20%);
+    transition: 0.3s;
+    letter-spacing: 0.5px;
+    pointer-events: none;
+  }
+
+.inputSearch input:focus ~ p,
+.inputSearch input:valid ~ p {
+    top: -18px;
+    left: 0;
+    font-size: 12px;
+    transition: 0.3s;
+  }
+
+.inputSearch input:not(:focus) ~ p {
+    color: #aaa;
+  }
