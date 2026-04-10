@@ -9,8 +9,52 @@
     width: 600px;
     margin: 0 auto;
     border: 1px solid;
+    padding: 30px;
 }
 
 .title {
+    text-align: center;
+    padding-bottom: 20px;
+}
 
+.btn {
+    padding: 4px 8px;
+    border: 1px solid #000000;
+    background: #ffffff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+    height: 40px;
+    min-width: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover {
+    font-weight: 500;
+}
+
+.inputCustom {
+    width: 100%;
+    border: 1px solid transparent;
+    background: #F5F1EE;
+    border-bottom-color: #aaa;
+}
+
+.inputCustom:focus {
+    outline: none;
+}
+
+.containerItem {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 4px;
+    height: 36px;
+}
+
+.iconCustom {
+    cursor: pointer;
 }

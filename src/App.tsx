@@ -31,7 +31,7 @@ function App() {
           </div>
         </div>
         <div style={{ textAlign: 'center' }}>
-          <Icon name='setting' size={25} color="#FFFFFF" />
+          <Icon name='setting' size={25} color="#FFFFFF"/>
         </div>
       </nav>
       <main className="main">
