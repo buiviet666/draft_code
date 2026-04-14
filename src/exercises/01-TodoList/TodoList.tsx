@@ -1,15 +1,22 @@
 import './TodoList.css';
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import type { Item } from './typeTodo';
 import Icon from '../../components/Icon';
 
 
 const TodoList = () => {
   const [valueInput, setValueInput] = useState<string>('');
-  const [listTodo, setListTodo] = useState<Item[]>([]);
+  const [valueInputSearch, setValueInputSearch] = useState<string>('');
+  const [sortDone, setSortDone] = useState("doneFirst");
+  const [listTodo, setListTodo] = useState<Item[]>(() => {
+    const data = sessionStorage.getItem('todoListData')
+    return data ? JSON.parse(data) : []
+  });
   const [editInput, setEditInput] = useState<string>('');
   const [filter, setFilter] = useState('all');
   const [toggle, setToggle] = useState(false);
+  const focusInput = useRef<HTMLInputElement>(null);
+  const checkMiniToggle = useRef<HTMLDivElement>(null);
 
   const listFilter = [
     {
@@ -36,7 +43,16 @@ const TodoList = () => {
     }
     setListTodo(prev => [...prev, value]);
     setValueInput('');
+    focusInput.current?.focus();
   }
+
+  const handleEnterAdd = (e: any) => {
+    if (e.key === "Enter") {
+      handleSubmitAdd();
+    }
+  }
+
+  console.log("sortDone", sortDone);
 
   const handleDeleteTodo = (value: Item) => {
     const data = listTodo.filter(item => item.id !== value.id);
@@ -78,6 +94,40 @@ const TodoList = () => {
     return true;
   })
 
+  const searchData = filterData.filter(item => 
+    item.name.toLowerCase().includes(valueInputSearch.toLowerCase())
+  )
+
+  const finalData = [...searchData].sort((a, b) =>
+    sortDone === "doneFirst"
+      ? Number(a.checked) - Number(b.checked)
+      : Number(b.checked) - Number(a.checked)
+  );
+
+  useEffect(() => {
+    if (focusInput.current) {
+      focusInput.current.focus();
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutSide = (e: any) => {
+      if (checkMiniToggle.current && !checkMiniToggle.current.contains(e.target)) {
+        setToggle(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutSide);
+    
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutSide);
+    };
+  }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem('todoListData', JSON.stringify(listTodo))
+  }, [listTodo]);
+
   return (
     <div className='container'>
       <div className='content'>
@@ -86,7 +136,16 @@ const TodoList = () => {
           display: 'flex',
           gap: '4px',
         }}>
-          <input name='todoinput' type='text' onChange={(e) => setValueInput(e.target.value)} value={valueInput} className='inputCustom' placeholder='Add something :D'/>
+          <input
+            ref={focusInput}
+            name='todoinput' 
+            type='text' 
+            onChange={(e) => setValueInput(e.target.value)} 
+            value={valueInput} 
+            className='inputCustom' 
+            placeholder='Add something :D'
+            onKeyDown={handleEnterAdd}
+          />
           <span onClick={handleSubmitAdd} className='btn'>Add</span>
           {listTodo.length > 0 && <span onClick={() => setListTodo([])} className='btn'>Clear</span>}
         </div>
@@ -94,13 +153,14 @@ const TodoList = () => {
         
 
         {listTodo.length > 0 && <div style={{
-          marginTop: '20px',
+          marginTop: '30px',
           position: 'relative',
           display: 'flex',
           gap: '8px',
         }}>
           <span className='btn' style={{}} onClick={() => setToggle(prev => !prev)}>Filter</span>
           <div className='tableMiniCustom' 
+            ref={checkMiniToggle}
             style={{
               display: toggle ? 'grid' : 'none'
             }}
@@ -112,17 +172,38 @@ const TodoList = () => {
               </label>
             ))}
           </div>
-          <div className='inputSearch' style={{display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', gap: '8px'}}>
-            <input style={{width: '100%'}} required/>
+          <div className='inputSearch' style={{display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center'}}>
+            <input 
+              name='searchInput'
+              style={{width: '100%'}} 
+              required 
+              onChange={(e) => setValueInputSearch(e.target.value)}
+              value={valueInputSearch}
+            />
             <p>Search</p>
             <span>
               <i />
             </span>
-            <Icon name='search' color='#FFFFFF' size={15} onClick={() => {}} className='iconCustom'/>
+            <div style={{
+              padding: '12px',
+            }}>
+              <Icon name='search' color='#FFFFFF' size={15}/>
+            </div>
+          </div>
+          <div 
+            style={{
+              padding: '12px',
+              cursor: 'pointer',
+            }}
+            onClick={() => setSortDone(prev => prev === "doneFirst" ? "doneLast" : "doneFirst")}
+          >
+            <Icon name='sort' style={{
+              color: sortDone === "doneFirst" ? '#aaa' : "#2196F3"
+            }} size={15}/>
           </div>
         </div>}
 
-        {filterData.length > 0 ? <div style={{
+        {finalData.length > 0 ? <div style={{
           marginTop: '20px',
         }}>
           <ul style={{
@@ -130,9 +211,16 @@ const TodoList = () => {
             display: 'flex',
             flexDirection: 'column',
             gap: '8px',
+            overflow: 'auto',
+            height: '510px',
+            scrollbarWidth: 'none',
           }}>
-            {filterData.map(item => (
-              <div>
+            {finalData.map(item => (
+              <div style={{
+                border: '1px solid #aaa',
+                padding: '10px',
+                borderRadius: '3px',
+              }}>
                 {item.edit ? <div className='containerItem' style={{padding: 0}}>
                   <input 
                     name='todoinputedit' 
@@ -143,15 +231,15 @@ const TodoList = () => {
                     }}
                     className='inputCustom'
                   />
-                  <div style={{padding: '10px'}}>
+                  <div className='customInputAction'>
                     <Icon name='close' color='#FFFFFF' size={13} onClick={() => handleEditTodo(item, true)} className='iconCustom'/>
                   </div>
-                  <div style={{padding: '10px'}}>
+                  <div className='customInputAction'>
                     <Icon name='check' color='#FFFFFF' size={15} onClick={() => handleEditTodo(item, false, editInput)} className='iconCustom'/>
                   </div>
                 </div> :
                 <label className='containerItem' style={{cursor: 'pointer'}}>
-                  <input className='inputView' checked={item.checked} type='checkbox' 
+                  <input name='editInput' className='inputView' checked={item.checked} type='checkbox' 
                     onChange={(e) => {
                       handleCheckTodo(e.target.checked, item)
                     }}
@@ -162,8 +250,11 @@ const TodoList = () => {
                     color: item.checked === true ? '#aaa' : '#000000',
                     width: '100%',
                     height: '100%',
-                    alignItems: 'center',
-                    display: 'flex',
+                    maxWidth: 'calc(100% - 50px)',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    display: 'block',
+                    alignContent: 'center',
                   }}>
                     {item.name}
                   </li>

@@ -22,9 +22,9 @@ YÊU CẦU CHỨC NĂNG
 
 2. Tính năng nâng cao:
    - Filter task theo trạng thái: All / Active / Completed >>> done
-   - Search task theo keyword
-   - Sort task: mới → cũ hoặc theo tên
-   - LocalStorage: lưu tasks để khi reload trang vẫn giữ state
+   - Search task theo keyword >>> done
+   - Sort task: mới → cũ hoặc theo tên >>> done
+   - LocalStorage: lưu tasks để khi reload trang vẫn giữ state >>> done (lưu vào session)
    - Drag & drop (optional) để sắp xếp task
 
 ================================================================================
@@ -41,3 +41,8 @@ GIAO DIỆN
 - Responsive: hiển thị tốt trên desktop và mobile
 
 ================================================================================
+
+## Do
+- Luyện ref chức năng (focus vào input add, khi ấn ra ngoài vùng của mini toggle 
+filter thì ẩn filter) >>> done
+- Thêm chức năng ở input add to do khi nhấn enter sẽ submit >>> done

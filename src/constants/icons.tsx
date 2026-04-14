@@ -7,6 +7,7 @@ import NotesIcon from "../assets/icons/NotesIcon";
 import PenIcon from "../assets/icons/PenIcon";
 import SearchIcon from "../assets/icons/SearchIcon";
 import SettingIcon from "../assets/icons/SettingIcon";
+import SortIcon from "../assets/icons/SortIcon";
 
 export const ICONS = {
   menu: MenuIcon,
@@ -18,4 +19,5 @@ export const ICONS = {
   close: CloseIcon,
   check: CheckIcon,
   search: SearchIcon,
+  sort: SortIcon,
 };

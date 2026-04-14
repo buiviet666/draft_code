@@ -10,11 +10,6 @@
     margin: 0 auto;
     border: 1px solid;
     padding: 30px;
-    overflow: auto;
-    max-height: calc(100vh - 200px);
-
-    scrollbar-width: none;
-    -ms-overflow-style: none;
 }
 
 .title {
@@ -147,11 +142,12 @@
 }
 
 .inputSearch {
-    position: relative;
+  position: relative;
+  border: 1px solid lightgray;
 }
 
 .inputSearch input {
-    border: 1px solid lightgray;
+    border: none;
     padding: 0.35em 0.45em;
     transition: 0.4s;
     background: transparent;
@@ -230,3 +226,8 @@
 .inputSearch input:not(:focus) ~ p {
     color: #aaa;
   }
+
+.customInputAction {
+  padding: 10px;
+  cursor: pointer;
+}
