@@ -1,0 +1,25 @@
+/* Chrome, Safari, Edge */
+.inputCustomCal::-webkit-outer-spin-button,
+.inputCustomCal::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.inputCustomCal {
+  -moz-appearance: textfield;
+}
+
+.inputCustomCal {
+  text-align: right;
+}
+
+.inputCustomCal {
+  width: 100%;
+  border: 1px solid transparent;
+  font-size: 45px;
+}
+
+.inputCustomCal:focus {
+  outline: none;
+}

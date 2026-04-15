@@ -1,6 +1,6 @@
 import './TodoList.css';
-import React, { useEffect, useRef, useState } from 'react'
-import type { Item } from './typeTodo';
+import { useEffect, useRef, useState } from 'react'
+import { listFilter, type Item } from './typeTodo';
 import Icon from '../../components/Icon';
 
 
@@ -17,21 +17,6 @@ const TodoList = () => {
   const [toggle, setToggle] = useState(false);
   const focusInput = useRef<HTMLInputElement>(null);
   const checkMiniToggle = useRef<HTMLDivElement>(null);
-
-  const listFilter = [
-    {
-      id: 1,
-      name: "all",
-    },
-    {
-      id: 2,
-      name: "do",
-    },
-    {
-      id: 3,
-      name: "completed",
-    },
-  ]
   
   const handleSubmitAdd = () => {
     if (valueInput === '') return;
@@ -51,8 +36,6 @@ const TodoList = () => {
       handleSubmitAdd();
     }
   }
-
-  console.log("sortDone", sortDone);
 
   const handleDeleteTodo = (value: Item) => {
     const data = listTodo.filter(item => item.id !== value.id);

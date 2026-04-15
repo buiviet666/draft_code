@@ -1,0 +1,109 @@
+Calculator App – Interactive Math Solver (ReactJS)
+
+================================================================================
+MỤC TIÊU
+--------------------------------------------------------------------------------
+Xây dựng một Calculator ReactJS để luyện tập các kỹ năng:
+- State management: useState, useReducer
+- Event handling: click button, keyboard input
+- Conditional rendering
+- Xử lý logic tính toán
+- Component structure & props
+- Side effects: useEffect (localStorage, keyboard event)
+- Optional: TypeScript / Context API / Styled Components
+
+================================================================================
+YÊU CẦU CHỨC NĂNG
+--------------------------------------------------------------------------------
+1. Tính toán cơ bản:
+   - Nhập số từ 0–9
+   - Thực hiện các phép toán: cộng (+), trừ (-), nhân (×), chia (÷)
+   - Nút "=" để trả kết quả
+   - Nút "C" hoặc "AC" để xóa toàn bộ
+   - Nút "DEL" để xóa 1 ký tự
+
+2. Tính năng nâng cao:
+   - Hỗ trợ số thập phân "." 
+   - Đổi dấu số "+/-"
+   - Phần trăm "%"
+   - Không cho nhập nhiều dấu "." trong cùng 1 số
+   - Không cho nhập nhiều operator liên tiếp sai logic
+   - Xử lý chia cho 0
+   - Hỗ trợ tính chuỗi phép toán liên tiếp
+   - Hiển thị expression hiện tại
+   - Lưu lịch sử tính toán (optional)
+   - LocalStorage: lưu lịch sử hoặc trạng thái gần nhất (optional)
+
+3. Tương tác nâng cao (optional):
+   - Hỗ trợ keyboard:
+     - số 0–9
+     - +, -, *, /
+     - Enter = "="
+     - Backspace = "DEL"
+     - Escape = "AC"
+   - Dark mode toggle
+   - Responsive trên desktop và mobile
+
+================================================================================
+GIAO DIỆN
+--------------------------------------------------------------------------------
+- Màn hình hiển thị:
+  - Current value
+  - Previous expression / operator
+- Các nút calculator:
+  - Hàng số từ 0–9
+  - Operators: +, -, ×, ÷
+  - Action buttons:
+    - AC / C
+    - DEL
+    - =
+    - .
+    - +/-
+    - %
+- Layout dạng grid giống calculator thật
+- Responsive: hiển thị tốt trên desktop và mobile
+
+================================================================================
+LOGIC CẦN XỬ LÝ
+--------------------------------------------------------------------------------
+- Khi nhấn số -> append vào current value
+- Khi nhấn operator -> lưu số hiện tại + operator
+- Khi nhấn "=" -> thực hiện phép tính và hiển thị kết quả
+- Khi nhấn "AC" -> reset toàn bộ state
+- Khi nhấn "DEL" -> xóa ký tự cuối
+- Khi nhấn "." -> chỉ cho phép 1 dấu thập phân trong 1 số
+- Khi nhấn operator liên tiếp:
+  - có thể replace operator cũ bằng operator mới
+- Khi chia 0:
+  - hiển thị "Error" hoặc chặn phép tính
+
+================================================================================
+GỢI Ý STATE
+--------------------------------------------------------------------------------
+- currentValue: string
+- previousValue: string
+- operator: string | null
+- overwrite: boolean
+- history: string[] (optional)
+
+================================================================================
+BONUS
+--------------------------------------------------------------------------------
+- Animation khi bấm nút
+- Âm thanh click
+- History panel
+- Copy kết quả
+- Theme switcher
+- Hỗ trợ ngoặc đơn (hard mode)
+
+================================================================================
+## Do
+- Xây dựng UI calculator dạng grid
+- Viết logic tính toán cơ bản
+- Xử lý các edge case:
+  - chia 0
+  - nhiều dấu "."
+  - nhiều operator liên tiếp
+  - số 0 ở đầu
+- Thêm keyboard support
+- Thêm localStorage cho history hoặc state
